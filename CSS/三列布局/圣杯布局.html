@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #header {
+      height: 60px;
+      background-color: #ccc;
+    }
+
+    #parent {
+      box-sizing: border-box;
+      height: 500px;
+      padding: 0 215px 0 115px;
+    }
+
+    #left {
+      margin-left: -100%;
+      position: relative;
+      left: -115px;
+      float: left;
+      width: 100px;
+      height: 500px;
+      background-color: #f00;
+      opacity: 0.5;
+    }
+
+    #center {
+      float: left;
+      width: 100%;
+      height: 500px;
+      box-sizing: border-box;
+      border: 1px solid #000;
+      background-color: #eeff2b;
+    }
+
+    #right {
+      position: relative;
+      left: 215px;
+      width: 200px;
+      height: 500px;
+      margin-left: -200px;
+      float: left;
+      background-color: #0f0;
+      opacity: 0.5;
+    }
+
+    #footer {
+      height: 60px;
+      background-color: #ccc;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="header">header</div>
+  <div id="parent">
+    <div id="center">center</div>
+    <div id="left">left</div>
+    <div id="right">right</div>
+  </div>
+  <div id="footer">footer</div>
+</body>
+
+</html>
