@@ -2,7 +2,7 @@
 
 ## 正文
 
-温馨提示：上面的步骤中的一些概念可以点击之后页面跳转到
+温馨提示：上面的步骤中的一些概念可以点击之后页面跳转到相应位置
 
 ### 1. 检查当前`script`标签内有没有语法错误
 
@@ -97,19 +97,19 @@ context:{
 创建前大概是这个样子：
 
 ```js
-假设有函数function fun(a,b,c){ var funvar = 2;}, 调用为fun(1,2,3);
+//假设有函数function fun(a,b,c){ var funvar = 2;}, 调用为fun(1,2,3);
 VO:{
-    arguments:{
-      0:1，
-      1:2，
-      2:3，
-      length:3
-    },
-    a:1,
-    b:2,
-    c:3,
-    funvar:undefined
-  }
+  arguments:{
+    0:1，
+    1:2，
+    2:3，
+    length:3
+  },
+  a:1,
+  b:2,
+  c:3,
+  funvar:undefined
+}
 ```
 
 创建之后就仅仅是把`funvar`赋值完整了
