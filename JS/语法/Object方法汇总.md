@@ -18,3 +18,15 @@
 
 功能：返回在传入的对象自身上找到的所有 Symbol 属性的**数组**。
 
+## Object.prototype.hasOwnProperty()
+
+原形：Object.prototype.hasOwnProperty("prop")
+
+功能：检测一个对象有没有叫`prop`的属性(**不考虑原型**)，注意传入的是一个**字符串**，返回布尔值，`true`表示有
+
+```js
+let obj = {}
+obj.hasOwnProperty("prop")//false
+```
+
+
