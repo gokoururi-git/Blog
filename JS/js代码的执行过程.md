@@ -39,7 +39,7 @@ console.log(i); class a { i(){} }//报错 i is not defined
   function fun(){ a() }//无报错
   ```
   
-  对函数变量赋值完成之后，还需要创建这个函数的**作用域链**<a id="scope-text" href="#scope">[解释]</a>（此时并不完整，还需等待它被调用执行后再加一个对应的执行上下文的变量对象才完整），具体地：会给当前的函数变量一个[[scope]]属性，这个属性指向一个数组，用于保存所有父级作用域链的变量对象，它**一层深拷贝**<a id="deep-copy-with-one-layer-text" href="#deep-copy-with-one-layer-note">[解释]</a>了当前执行上下文的`scope`。（需要理解的是这是创建这个函数的执行上下文前的准备工作）
+  对函数变量赋值完成之后，还需要创建这个函数的**作用域链**<a id="scope-text" href="#scope">[解释]</a>（此时并不完整，还需等待它被调用执行后再加一个对应的执行上下文的变量对象才完整），具体地：会给当前的函数变量一个[[scope]]属性，这个属性指向一个数组，用于保存所有父级作用域链的变量对象，它**浅拷贝**<a id="deep-copy-with-one-layer-text" href="#deep-copy-with-one-layer-note">[解释]</a>了当前执行上下文的`scope`。（需要理解的是这是创建这个函数的执行上下文前的准备工作）
   
   ```js
   function a(){}
@@ -158,11 +158,11 @@ VO:{
 
 作用域链可以描述为用来存储**父级**作用域（当前作用域的这个角色由当前作用域的变量对象承担）的**变量对象**的一个**栈**，之所以说它是栈，是因为元素顺序是有要求的。
 
-## 一层深拷贝
+## 浅拷贝
 
 <a id="deep-copy-with-one-layer-note" href="#deep-copy-with-one-layer-text">点击返回</a>
 
-浅拷贝：
+简单赋值：
 
 ```js
 let obj = {
@@ -198,7 +198,7 @@ console.log(obj.name);//obj
 console.log(obj.obj2.name);//obj2
 ```
 
-一层深拷贝：
+浅拷贝：
 
 ```js
 let obj = {
@@ -219,7 +219,7 @@ console.log(obj.name);//obj
 console.log(obj.obj2.name);//changed
 ```
 
-> 一层深拷贝也可以这么做：`let copy = Object.assign({}, obj);`
+> 浅拷贝也可以这么做：`let copy = Object.assign({}, obj);`
 
 
 
