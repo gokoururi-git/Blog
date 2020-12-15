@@ -1,33 +1,34 @@
-function myPro(constructor){
+function myPromise(constructor){
   let that = this;
   that.statu = that.states.PENDING;
   that.data = null;
+  that.err = null;
   that.onFulfilled = [];
   that.onRejected = [];
-  let resolve = (data)=>{
+  this.resolve = (data)=>{
     if(that.statu === that.states.PENDING){
       that.statu = that.states.FULFILLED;
       that.data = data;
-      that.onFulfilled.forEach(fun=>{fun(data)});
+      that.onFulfilled.forEach(fun=>{fun(this.data)});
     }
   }
-  let reject = (err)=>{
+  this.reject = (err)=>{
     if(that.statu === that.states.PENDING){
       that.statu = that.states.REJECTED;
-      that.data = err;
-      that.onRejected.forEach(fun=>{fun(err)});
+      that.err = err;
+      that.onRejected.forEach(fun=>{fun(this.err)});
     }
   }
-  constructor(resolve, reject);
+  constructor(this.resolve, this.reject);
 }
 
-myPro.prototype.states = {
+myPromise.prototype.states = {
   PENDING : Symbol("pending"),
   REJECTED : Symbol("rejected"),
   FULFILLED : Symbol("fulfilled")
 }
 
-myPro.prototype.then = function(success, fail){
+myPromise.prototype.then = function(success, fail){
   if(this.statu === this.states.PENDING){
     this.onFulfilled.push(success);
     this.onRejected.push(fail);
@@ -36,9 +37,10 @@ myPro.prototype.then = function(success, fail){
   }else{
     this.onRejected(this.data);
   }
+  return this;
 }
 
-new myPro((resolve, reject)=>{
+new myPromise((resolve, reject)=>{
   setTimeout(()=>{
     reject("err");
   })
