@@ -14,6 +14,33 @@
 
 情景一：蒙层绑定touch事件实现点击关闭，底部某些元素绑定click事件（比如a是天然的click事件）因为click事件有延迟效果，但是touch事件没有，在这300ms的时间差里，touch事件先将遮罩去掉，然后click事件才发生，便有了“穿透”的效果（注意这不是冒泡）
 
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .test{
+      position: absolute;
+      z-index: 99;
+      top: 0;
+      left: 0;
+      background-color: pink;
+      width: 300px;
+      height: 300px;
+      opacity: .5;
+    }
+  </style>
+</head>
+<body>
+  <a href="https://www.bilibili.com">点击</a>
+  <div class="test" ontouchstart="((event)=>{this.style.display = 'none';event.stopPropagation(); })(event)"></div>
+</body>
+</html>
+```
+
 具体解决办法：
 1. touch事件开始时阻止默认行为event.preventDefault()
 2. 引入fastclick

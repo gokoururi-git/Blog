@@ -173,7 +173,7 @@ VO:{
 
 <a id="deep-copy-with-one-layer-note" href="#deep-copy-with-one-layer-text">点击返回</a>
 
-简单赋值：
+简单引用拷贝：
 
 ```js
 let obj = {
@@ -182,7 +182,7 @@ let obj = {
     name:"obj2"
   }
 }
-//发生浅拷贝:
+//发生简单引用拷贝：
 let copy = obj;
 //其效果如下
 copy.name = "changed";
@@ -218,7 +218,7 @@ let obj = {
     name:"obj2"
   }
 }
-//发生一层深拷贝：
+//发生浅拷贝：
 let copy = {
   name:obj.name,
   obj2:obj.obj2
@@ -231,6 +231,7 @@ console.log(obj.obj2.name);//changed
 ```
 
 > 浅拷贝也可以这么做：`let copy = Object.assign({}, obj);`
+> 另外，对于数组也可以：`let copy = array.concat()`或者`let copy = array.slice()`
 
 
 
