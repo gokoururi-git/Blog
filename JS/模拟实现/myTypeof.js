@@ -29,6 +29,8 @@ function myTypeof1(v){
 function myTypeof2(v){
   //Object.prototype.toString.call(v) return a string: "[object Type]"
   //但是注意：Symbol.toStringTag可以修改Symbol对象的Object.tostring.call的返回值
+  //另外注意：Object.prototype.toSting(v)不管传入什么都只会返回"[object Obejct]"
+  //另外还需要注意：Object.toString(v)不管传入什么都会返回"function Object() { [native code] }"
   const str = Object.prototype.toString.call(v).split(' ')[1];
   return str.slice(0, str.length - 1);
 }
