@@ -1,4 +1,8 @@
-# js代码的执行过程
+# 用我自己的方式理解js代码的执行过程
+
+*因为是用自己的方式理解，所以我们只是经过实验和经验得出下面结论，等待日后通过ECMAScript文档或V8源码进行正面验证与修改完善*
+
+当前存在的问题：没管变量对象对于传进来的参数的优先级的问题
 
 ## 正文
 
@@ -42,7 +46,7 @@
   function fun(){ a() }//无报错
   ```
   
-  对函数变量赋值完成之后，还需要创建这个函数的**作用域链**<a id="scope-text" href="#scope">[解释]</a>（此时并不完整，还需等待它被调用执行后再加一个对应的执行上下文的变量对象才完整），具体地：会给当前的函数变量一个[[scope]]属性，这个属性指向一个数组，用于保存所有父级作用域链的变量对象，它**浅拷贝**<a id="deep-copy-with-one-layer-text" href="#deep-copy-with-one-layer-note">[解释]</a>了当前执行上下文的`scope`。（需要理解的是这是创建这个函数的执行上下文前的准备工作）
+  对函数变量赋值完成之后，还需要创建这个函数的**作用域链**<a id="scope-text" href="#scope">[解释]</a>（此时并不完整，还需等待它被调用执行后再加一个对应的执行上下文的变量对象才完整）和**变量对象**。对于作用域链：会给当前的函数变量一个[[scope]]属性，这个属性指向一个数组，用于保存所有父级作用域链的变量对象，它**浅拷贝**<a id="deep-copy-with-one-layer-text" href="#deep-copy-with-one-layer-note">[解释]</a>了当前执行上下文的`scope`。对于变量对象：我们将函数定义的参数放入变量对象，并且赋值undefined（需要理解的是这是创建这个函数的执行上下文前的准备工作）
   
   ```js
   function a(){}
@@ -80,12 +84,37 @@
 currentContext.scope = currentFunction.[[scope]].slice();
 currentContext.scope.push(currentContext.VO);
 ```
+下面代码证明了是浅拷贝
+```js
+function fn(){
+  let min = 0;
+  function fn2(){
+    min++;
+  }
+  fn2();
+  console.log(min);//1
+}
+fn();
+```
+
+一些疑惑：
+
+为什么非要是浅拷贝？
+
+因为如果过程变成这样
+
+```js
+currentContext.scope = currentFunction.[[scope]];//.slice()
+currentContext.scope.push(currentContext.VO);
+```
+那么执行下面的push操作的时候，就相当于是`[[scope]].push()`, 那么以后多次调用这个函数，就会把每次的VO放进来，这么做是不符合逻辑的。
+
 
 #### 全局执行上下文的创建过程与函数执行上下文的创建过程的区别
 
    `(1)`：全局上下文的this是`window`
 
-   `(2)`：全局上下文的变量对象中没有`arguments`和形式参数，另外，全局上下文的[[scope]]是空数组
+   `(2)`：全局上下文的变量对象中没有`arguments`和形式参数，另外，全局上下文一开始的[[scope]]是空数组
 
 ### 4. 将当前执行上下文压入执行上下文栈
 
@@ -103,7 +132,7 @@ var var1 = function(){}; var var1; console.log(typeof var1);//function
 
 **如果遇到同步函数调用，那么进入该函数，按上述步骤建立这个函数的执行上下文并执行，等这个函数执行完毕之后再执行当前函数剩下的代码**
 
-**如果遇到了{}的话，一般的情况就是会重新扫描一遍，具体如下，其他的这块就没再仔细研究了，感觉毕竟用得不多**
+**如果遇到了{}的话，一般的情况就是会把它当作函数进行一遍扫描，具体如下，其他的这块就没再仔细研究了，感觉毕竟用得不多**
 
 ```js
 let tmp;
