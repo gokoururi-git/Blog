@@ -12,7 +12,7 @@ function myNew(constructor, ...args){
   const obj = Object.create(constructor.prototype);
   let temp = constructor.apply(obj, args);
   let type = typeof temp;
-  return  type === 'function' || 'object' ? temp : obj;
+  return  type === 'function' || 'object' && temp !== null ? temp : obj;
   //总之如果返回值是对象，那么返回它，否则返回自己建的obj，引申：typeof new Array() 返回 'object'
 }
 

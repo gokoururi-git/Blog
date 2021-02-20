@@ -1,8 +1,17 @@
 Array.prototype.myReduce = function(func, initValue){
-  let acc = initValue === undefined ? null : initValue;
-  this.forEach((curr, index, array)=>{
-    acc = func(acc, curr, index, array);
-  });
+  let arr = this;
+  let acc = null;
+  if(initValue === undefined){
+    acc = func(initValue, arr[i], i, arr)
+    for(let i = 1; i < arr.length; i++){
+      acc = func(acc, arr[i], i, arr);
+    }
+  }else{
+    acc = initValue;
+    for(let i = 0; i < arr.length; i++){
+      acc = func(acc, arr[i], i, arr);
+    }
+  }
   return acc;
 }
 

@@ -1,5 +1,3 @@
-# ES6学习总结
-
 ## Set
 
 ### Set也可以用`...`
@@ -73,4 +71,3 @@ for (let item of set.entries()) {
 
 - 与weakset一样防止内存泄漏
 - 部署私有属性
-

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <button>发送请求</button>
+  <script src="./myAxios.js"></script>
+  <script>
+    console.dir(axios);
+
+    let btn = document.querySelector('button');
+
+    let cancel = null;
+
+    let data = new URLSearchParams();
+    data.append('result', 'success');
+
+    btn.onclick = function () {
+      // if (cancel !== null) { //上次请求还在就先取消上次请求
+      //   cancel('本次请求被取消');
+      // }
+      // axios({
+      //   method: 'post',
+      //   url: 'http://127.0.0.1:5000/test',
+      //   headers: {
+      //     'Content-Type': 'application/json'
+      //   },
+      //   data: data
+      //   // cancelToken: new axios.CancelToken(function (c) {
+      //   //   cancel = c;
+      //   // })
+      // }).then(res => {
+      //   console.log(res);
+      // })
+      let instance = axios.create({});
+
+      instance.interceptors.request.use(function one(config) {
+        console.log('request拦截器第一个成功函数');
+        return config;
+      }, function one(config) {
+        console.log('request拦截器第一个失败函数');
+        return config;
+      });
+
+      instance.interceptors.request.use(function two(config) {
+        console.log('request拦截器第二个成功函数');
+        return config;
+      }, function two(config) {
+        console.log('request拦截器第二个失败函数');
+        return config;
+      });
+
+      instance.interceptors.response.use(function one(res) {
+        console.log('response拦截器第一个成功函数');
+        console.log(res);
+        return res;
+      }, function one(res) {
+        console.log('response拦截器第一个失败函数');
+        return res;
+      });
+
+      instance.interceptors.response.use(function two(res) {
+        console.log('response拦截器第二个成功函数');
+        return res;
+      }, function two(res) {
+        console.log('response拦截器第二个失败函数');
+        return res;
+      });
+
+      instance({
+        method: 'get',
+        url: 'http://127.0.0.1:5000/test'
+      }).then(res => {
+        console.log(res);
+      })
+    }
+  </script>
+</body>
+
+</html>
