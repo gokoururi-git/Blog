@@ -32,3 +32,49 @@ IE9支持，所以几乎没有兼容性问题
 
 - 如果提供了，那么会将提供的值作为acc，array[0]作为curr（执行回调函数len次）
 
+## Array.prototype.flat
+
+原型：Array.prototype.flat(depth)
+
+将自身拍平指定层，并且删除多余部分
+
+拍平：
+
+```js
+[1,[2,[3,[4]]]].flat(2);//[1, 2, 3, [4]]
+```
+
+删除多余部分
+
+```js
+[1,2,,3,4].flat()//[1, 2, 3, 4]
+//注：
+//虽然
+[1,2,undefined,3,4].flat()//[1, 2, undefined, 3, 4]
+//但是
+[1,2,,3,4][2] === [1,2,undefined,3,4][2]//true
+```
+
+## Array.prototype.splice
+
+原型: Array.prototype.splice(startIndex[, deleteCount[, ...addItems]]);
+
+从指定的下标位置startIndex开始，删除deleteCount个元素，并在startIndex处增加后续的所有addItems。最终返回被删除了的元素组成的数组。
+
+注意：
+
+- 增加的items的部分的开始下标就是startIndex
+
+    ```js
+    [1,2,3,4,5,6,7,8].splice(3, 0, 9, 9, 9);//返回[]，原数组变为[1, 2, 3, 9, 9, 9, 4, 5, 6, 7, 8]
+    [1,2,3,4,5,6,7,8].splice(3, 2, 9, 9, 9);//返回[4, 5]，原数组变为[1, 2, 3, 9, 9, 9, 6, 7, 8]
+    ```
+
+- 如果不想删除元素一定要加中间的0，不能空
+
+- 后面两个都不写代表删除startIndex（包括）以后的所有元素
+
+    ```js
+    [1,2,3,4,5,6].splice(2);//返回[3,4,5,6], 原数组变为[1,2]
+    ```
+

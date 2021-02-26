@@ -1,5 +1,19 @@
 # Object方法汇总
 
+## Object()
+
+原型：Object(any);
+
+功能：
+
+- 如果传进来的是一个对象，那么直接返回这个对象
+
+- 如果传进来的是一个除了undefined、null的基本类型变量，就返回这个基本类型的包装类（new Number、new String、new Boolean）
+
+- 如果传进来的是undefined，当作无参，返回{}
+
+- 如果传进来的是null，返回{}
+
 ## Object.assign()
 
 原形：Object.assign(target, sources1, sources2,...)
