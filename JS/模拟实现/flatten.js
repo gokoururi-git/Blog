@@ -1,11 +1,11 @@
-function fatten(arr){
+function flatten(arr){
   return arr.reduce((accumulator, curr)=>{
     if(Array.isArray(curr)){
-      return fatten(accumulator.concat(curr));
+      return flatten(accumulator.concat(curr));
     }else{
       return accumulator.concat(curr);
     }
   },[]);
 }
 
-console.log(fatten([1, [2, 3, [4, 5]]]));
+console.log(flatten([1, [2, 3, [4, 5]]]));
