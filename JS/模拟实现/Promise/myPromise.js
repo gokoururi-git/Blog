@@ -38,7 +38,11 @@ class MyPromise {
         this.state = REJECTED;
       })
     }
-    executor(resolve, reject);
+    try{
+      executor(resolve, reject);
+    }catch(e){
+      reject(e);
+    }
   }
   then(onFulfilled, onRejected) {
     //当onFulfilled或者onRejected不是函数，那么就让他们传递value
