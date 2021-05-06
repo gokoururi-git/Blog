@@ -53,9 +53,9 @@
   a.[[scope]] = callerContext(当前函数的调用者的执行上下文).scope.sclice()
   ```
 
-###### 其中：如果遇到重复变量名：
+###### 其中：如果遇到相同变量名的声明：
 
-- 两个重复声明的声明类型有`let`，`const`，`class`：报错
+- 两个重复声明的声明类型里有`let`，`const`，`class`：报错
 
 	```js
 	function var0(){}; let var0;//error
@@ -66,13 +66,44 @@
 
 - 两个重复声明的声明类型都不是`let`，`const`，`class`
 
-  - 如果重复声明中有`function`，那么按`function`声明
+  - 如果重复声明的类型中同时有`function`和`var`，那么按`function`声明（多个function参考下面的*重复声明的都是function*）
 
-  ```js
-  var a; function a(){}; console.log(typeof a);//function
-  ```
+    ```js
+    var a; function a(){}; console.log(typeof a);//function
+    ```
 
-  - 如果重复声明都是`var`或者都是`function`，那么忽略后面的声明
+  - 如果重复声明类型都是`var`，那么忽略后面所有的当前变量名的`var`关键字（当前作用域）（之后再遇到就是简单的变量赋值）
+
+  - 如果重复声明都是`function`，那么当前变量名就是最后一次声明了的函数的引用，并且不再受其他声明的影响（在当前脚本的预处理阶段结束之后，直接忽略所有的当前变量名的函数的声明，具体看示例）
+
+    ```js
+    f();//2
+    var f;
+    function f(){console.log(1)};
+    function f(){console.log(2)};
+    f();//2
+    ```
+
+    **需要注意的是：**
+      ```js
+        function f(f){
+        f();
+
+        function f() {
+          console.log(1);
+        }
+
+        function f() {
+          console.log(2);
+        }
+
+        f();
+      }
+
+      f(f);//2 2
+      f(()=>{console.log(3)});//2 2
+      ```
+    传入的参数也参与其中，就相当于是代码一开始的地方进行声明
 
 ##### (3) 初始化当前上下文的**作用域链**
 

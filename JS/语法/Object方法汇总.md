@@ -20,6 +20,8 @@
 
 功能：将source1，2等汇总整合到target并返回
 
+细节：具体的执行步骤是按sources1、sources2...往target汇总，期间遇到相同的属性进行覆盖。
+
 ## Object.create()
 
 原形：Object.create(proto[, propertiesObject])
@@ -112,5 +114,16 @@ table: 描述符可拥有的键值
 
 如果一个描述符不具有 `value`、`writable`、`get` 和 `set` 中的任意一个键，那么它将被认为是一个数据描述符。如果一个描述符同时拥有 `value` 或 `writable` 和 `get` 或 `set` 键，则会产生一个异常。即不能同时定义数据描述符和访存描述符。
 
+## Object.seal()
+
+原型：Object.seal(obj)
+
+功能：使对象obj变得不能被添加、删除属性，但是属性的值可以修改，返回把obj处理之后的引用，而不是创建副本。
+
+## Object.freeze()
+
+原型：Object.freeze(obj)
+
+功能：类似于seal，只不过用freeze处理之后，obj的属性值也变得不能被修改，同样返回obj经过处理之后的引用而不是创建副本。
 
 
