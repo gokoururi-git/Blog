@@ -1,10 +1,10 @@
-function debounce(func, layout){
+function debounce(func, delay){
   let timer = null;
   return function(...args){
     if(timer !== null){
       clearTimeout(tiemr);
     }
-    timer = setTimeout(func.bind(this), layout, ...args);
+    timer = setTimeout(func.bind(this), delay, ...args);
   }
 }
 
