@@ -6,7 +6,7 @@
 
 ## Promise的执行过程
 
-在resolve和reject没有被调用时，先同步执行Promise()传进去的函数，里面resolve，reject异步执行，接着同步执行then，结束之后，在当前主宏任务结束之前，在当前微任务中执行resolve/reject函数，resolve/reject函数有改变所有then创建的promise以及初始实例的1. 状态2. 值 的功能。这些promise之间的值的传递都体现在了每个promise的resolve/reject上了
+在resolve和reject没有被调用时，先同步执行Promise()传进去的函数，里面resolve，reject的调用异步执行，接着同步执行then，结束之后，在当前主宏任务结束之前，在当前微任务中执行resolve/reject函数，resolve/reject函数有改变所有then创建的promise以及初始实例的1. 状态2. 值 的功能。这些promise之间的值的传递都体现在了每个promise的resolve/reject上了
 ```js
 //then: return new Promise((resolve, reject)=>{
 this.onFulfilleds.push((value)=>{

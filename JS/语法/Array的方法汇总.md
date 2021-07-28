@@ -8,7 +8,7 @@
 
 原型：Array.prototype.indexOf(item[, fromIndex])
 
-提供了fromIndex就从array的fromIndex开始找item，没提供就从一开始找，返回找到的item的下标（`===`判断）
+提供了fromIndex就从array的fromIndex开始找item，没提供就从一开始找，返回找到的item的下标（`===`判断）,没找到返回undefined
 
 > 引申：String.prototype.indexOf一样
 

@@ -25,7 +25,7 @@ window.onhashchange = function(e){
 核心原理：
 
 ```js
-history.pushState()配合window.popstate事件监听
+history.pushState()配合window.onpopstate事件监听
 ```
 
 ### 缺点

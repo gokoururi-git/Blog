@@ -56,7 +56,7 @@ class MyPromise {
     }
 
     return new Promise((resolve, reject) => {
-      let onFulfilledWraper = (result) => {
+      let onFulfilledWrapper = (result) => {
         try {
           let x = onFulfilled(result);
           if (x instanceof MyPromise) {
@@ -68,7 +68,7 @@ class MyPromise {
           reject(e);
         }
       }
-      let onRejectedWraper = (reason) => {
+      let onRejectedWrapper = (reason) => {
         try {
           let x = onRejected(reason);
           if (x instanceof MyPromise) {
@@ -81,12 +81,12 @@ class MyPromise {
         }
       }
       if (this.state === PENDING) {
-        this.onFilfilleds.push(onFulfilledWraper);
-        this.onRejecteds.push(onRejectedWraper);
+        this.onFilfilleds.push(onFulfilledWrapper);
+        this.onRejecteds.push(onRejectedWrapper);
       } else if (this.state === FULFILLED) {
-        onFulfilledWraper(this.value);
+        onFulfilledWrapper(this.value);
       } else {
-        onRejectedWraper(this.reason);
+        onRejectedWrapper(this.reason);
       }
     });
   }

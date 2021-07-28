@@ -35,4 +35,16 @@ css小记的最下边那块
 
 11. [flex对齐问题](https://ambar.li/2017-11-04---align-svg-icon-to-text/)
 
+https://blog.csdn.net/wopelo/article/details/78607879
+
+react优化
+
+node是怎么注入__dirname变量的
+
+modules.exports 和 exports的关系
+
+
+vue的keep-alive组件采用LRU, 再记一下node事件循环
+
+CA证书颁发过程中被截断怎么处理
 

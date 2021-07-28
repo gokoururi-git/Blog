@@ -104,3 +104,29 @@ vscode安装插件`GitLens`辅助git流程
     `git checkout -b xxx`的含义是**在当前分支的基础**上分出来一个新的**本地分支**
 
     只有当我们git push origin xxx的时候远程会检测有没有这个分支，如果没有就创建一个远程分支
+
+9. git reset
+
+    git reset 一种有3种模式：
+
+    ```bash
+    git reset --mixed <SHA> #默认
+    git reset --hard <SHA>
+    git reset --soft <SHA>
+    ```
+
+    其中：
+
+    - `--mixed`是指HEAD指向目标提交，然后将所有后续提交放入工作区（未add前），这也是默认模式
+
+    - `--hard`是指HEAD指向目标提交，然后将所有后续提交扔掉
+
+    - `--soft`是指HEAD指向目标提交，然后将所有后续提交放入暂存区（add后，commit前）
+
+10. git revert
+
+```bash
+git revert <SHA>
+```
+
+它的作用是用SHA对应的Commit的上一个commit和当前最新commit进行merge，之前的commit不会被删除
