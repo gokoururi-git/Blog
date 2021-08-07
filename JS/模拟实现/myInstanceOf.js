@@ -14,6 +14,6 @@ Object.prototype.myInstanceOf = function(constructor){
 /**
  * 1. 我们应该往上找的是this的原型，不要搞混了
  * 2. prototype是“变量”，我们获取它的原型应该用Object.getPrototypeOf()
- * 千万记得：构造函数才有prototype
+ * 千万记得：函数才有prototype
  */
 
