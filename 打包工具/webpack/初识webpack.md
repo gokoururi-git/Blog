@@ -12,7 +12,7 @@
 
 ## tree shaking
 
-通过ESModule的能力，webpack有办法实现死代码检查，并且在打包时去除掉这些死代码，这个过程就交tree shaking
+通过ESModule的能力，webpack有办法实现死代码检查，并且在打包时去除掉这些死代码，这个过程就就叫tree shaking
 
 ## code splitting
 
