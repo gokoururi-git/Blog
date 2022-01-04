@@ -1,0 +1,1 @@
+[redux-observable](https://www.npmjs.com/package/redux-observable) 是一个用rxjs来调度「redux的action」流转的一个成熟解决方案(是一个redux的中间件)

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<!--
+server 代码
+
+import Koa from 'koa';
+import KoaRouter from 'koa-router';
+import koaBody from 'koa-body';
+import koaCORS from 'koa2-cors';
+
+function timer(time) {
+  return new Promise((resolve) => { setTimeout(resolve, time) });
+}
+
+const app = new Koa();
+
+const router = new KoaRouter();
+
+router.post('/test', async (ctx) => {
+  ctx.body = ctx.request.body.payload;
+  await timer(Math.random()*1000 % 1000);
+  return ctx;
+});
+
+router.post('/test1', async (ctx) => {
+  ctx.body = ctx.request.body.payload;
+  await timer(Math.random()*1000 % 1000);
+  return ctx;
+})
+
+app.use(koaCORS());
+app.use(koaBody());
+app.use(router.routes());
+
+
+app.listen(8080);
+
+-->
+
+<body>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+
+    const cancelFuncMap = {};
+
+    function requestAfterAbortPrevious(params) {
+      const { url, method } = params;
+      const requestKey = method + url;
+      if (cancelFuncMap[requestKey]) {
+        cancelFuncMap[requestKey]();
+      }
+      return axios({
+        ...params,
+        cancelToken: new axios.CancelToken(c => {
+          cancelFuncMap[requestKey] = c;
+        }),
+      })
+    }
+
+    for (let i = 0; i < 5; i++) {
+      requestAfterAbortPrevious({
+        baseURL: 'http://localhost:8080',
+        method: 'post',
+        url: '/test',
+        data: {
+          payload: i
+        }
+      }).then(res => {
+        console.log(res.data);
+      }).catch(err => {});
+      requestAfterAbortPrevious({
+        baseURL: 'http://localhost:8080',
+        method: 'post',
+        url: '/test1',
+        data: {
+          payload: i
+        }
+      }).then(res => {
+        console.log(res.data);
+      }).catch(err => {});
+    }
+  </script>
+</body>
+
+</html>

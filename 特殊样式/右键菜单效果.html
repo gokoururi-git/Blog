@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #panel {
+      width: 100px;
+      height: 200px;
+      background-color: #eee;
+      position: absolute;
+    }
+  </style>
+</head>
+
+<body>
+  <div style="display: none;" id="panel"></div>
+  <script>
+    (() => {
+      window.addEventListener(
+        'contextmenu',
+        (e) => {
+          const panel = document.getElementById('panel');
+          e.preventDefault();
+          console.log(e);
+          panel.style.top = `${e.clientY}px`;
+          panel.style.left = `${e.clientX}px`;
+          panel.style.display = 'block';
+        },
+        false
+      );
+      window.addEventListener(
+        'click',
+        (e) => {
+          const panel = document.getElementById('panel');
+          panel.style.display = 'none';
+        },
+        false
+      );
+    })();
+  </script>
+</body>
+
+</html>
