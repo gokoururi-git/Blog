@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="karaoke">
+    <li>我是歌词我是歌词我是歌词我是歌词1</li>
+    <li>我是歌词我是歌词我是歌词我是歌词2</li>
+    <li>我是歌词我是歌词我是歌词我是歌词3</li>
+    <li>我是歌词我是歌词我是歌词我是歌词4</li>
+  </div>
+  <script>
+    ((window) => {
+      if (window.Karaoke) {
+        throw Error('你已经有一个全局变量叫做Karaoke，所以当前无法通过外部cdn script标签引入Karaoke，请使用npm包react-progress-lyric');
+      }
+      window.Karaoke = (config) => {
+        const rootElementSelector = config?.rootElement || document.getElementById('karaoke');
+        if (!rootElementSelector) {
+          throw new Error('没有找到根标签, 请提供');
+        }
+        const ass = config?.ass;
+        if (!ass) {
+          console.warn('没有提供ass内容，Karaoke未做任何更改，Karaoke已运行结束');
+          return;
+        }
+      }
+    })(window)
+  </script>
+</body>
+
+</html>
