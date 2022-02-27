@@ -1,5 +1,8 @@
 {
   "type": "module",
+  "scripts": {
+    "server": "node server"
+  },
   "dependencies": {
     "axios": "^0.24.0",
     "koa": "^2.13.1",
