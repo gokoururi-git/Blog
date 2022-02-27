@@ -11,16 +11,16 @@ const app = new Koa();
 
 const router = new KoaRouter();
 
-router.post('/test', async (ctx) => {
+router.post('/timer', async (ctx) => {
   ctx.body = ctx.request.body.payload;
   await timer(Math.random()*1000 % 1000);
   return ctx;
 });
 
-router.post('/test1', async (ctx) => {
-  ctx.body = ctx.request.body.payload;
-  await timer(Math.random()*1000 % 1000);
-  return ctx;
+router.get('/301', async (ctx) => {
+  ctx.res.writeHead(301, 'moved', {
+    location: 'https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status/301'
+  });
 })
 
 app.use(koaCORS());
