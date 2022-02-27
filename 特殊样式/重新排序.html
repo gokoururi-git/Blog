@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>重新排序</title>
+</head>
+
+<body>
+  <script>
+    function mockNewOrder(len) {
+      const randoms = [];
+      for (let i = 0; i < len; i++) {
+        randoms.push({
+          weight: Math.random(),
+          index: i
+        });
+      }
+      for (let i = 0; i < len - 1; i++) {
+        for (let j = i + 1; j < len; j++) {
+          if (randoms[i].weight > randoms[j].weight) {
+            [randoms[i], randoms[j]] = [randoms[j], randoms[i]];
+          }
+        }
+      }
+      return randoms.map(item => item.index);
+    }
+    function resetOrder(el, n, height, delay) {
+      const oldTopString = window.getComputedStyle(el).top;
+      // const oldTop = Number(oldTopString.slice(0, oldTopString.length - 2));
+      const oldTop = parseInt(oldTopString);
+      console.log('oldTop', oldTop);
+      const newTop = n * height;
+      if (oldTop > newTop) {
+        el.style.backgroundColor = '#f00';
+        el.style.zIndex = 100;
+      } else if (oldTop < newTop) {
+        el.style.backgroundColor = '#0f0';
+        el.style.zIndex = 10;
+      } else {
+        el.style.zIndex = 50;
+      }
+      el.style.top = `${n * height}px`;
+      el.innerText = `${el.innerText.indexOf('-->') === -1 ? el.innerText : el.innerText.split('-->')[1]}-->${n}`;
+    }
+    function reorder(els, newOrder, height, delay) {
+      console.log('new order', newOrder);
+      newOrder.forEach((item, index) => {
+        resetOrder(els[index], item, height, delay);
+      })
+    }
+    function init(len, { height = 30, delay = 1 }) {
+      const container = document.createElement('div');
+      const items = [];
+      container.style.position = 'relative';
+      container.style.height = `${len * height}px`;
+      for (let i = 0; i < len; i++) {
+        const item = document.createElement('div');
+        item.style.position = 'absolute';
+        item.style.width = '200px';
+        item.style.top = `${i * height}px`;
+        item.style.height = `${height}px`;
+        item.style.lineHeight = `${height}px`;
+        item.style.textAlign = 'center';
+        item.style.transition = `${delay}s top`;
+        item.style.background = '#eee';
+        item.style.boxShadow = '3px #ccc';
+        item.innerText = i;
+        item.addEventListener('transitionend', () => {
+          item.style.background = '#eee';
+        });
+        container.appendChild(item);
+        items.push(item);
+      }
+      const button = document.createElement('button');
+      button.innerText = '重新排序';
+      button.addEventListener('click', () => reorder(items, mockNewOrder(len), height, delay));
+      document.body.appendChild(container);
+      document.body.appendChild(button);
+    }
+    init(8, {
+      delay: 5
+    });
+  </script>
+</body>
+
+</html>
