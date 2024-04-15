@@ -5,20 +5,24 @@
   *   children:node[]
   * }} root
   */
- function dfs(root) {
-   let stack = [root];
-   let res = [];
-   let temp;
-   while (stack.length !== 0) {
-     temp = stack.pop();
-     res.push(temp.value);
-     temp = temp.children;
-     for(let j = temp.length - 1; j >= 0; j--){
-       stack.push(temp[j]);
-     }
-   }
-   return res;
- }
+function dfs(root) {
+  const stack = [root];
+  let cur = root;
+  while (stack.length) {
+    cur = stack.pop();
+    console.log(cur.value);
+    for (let i = cur.children.length - 1; i >= 0; i--) {
+      stack.push(cur.children[i]);
+    }
+  }
+}
+
+function dfs2(root) {
+  console.log(root.value);
+  for(const curr  of root.children) {
+    dfs2(curr);
+  }
+}
  let root = {
    value:0,
    children:[{
@@ -53,4 +57,4 @@
      }]
    }]
  }
- console.log(dfs(root));
+ console.log(dfs2(root));
